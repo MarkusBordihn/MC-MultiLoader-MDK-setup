@@ -1,0 +1,51 @@
+{
+  "name": "mc-multi-loader-mdk",
+  "version": "0.1.0",
+  "description": "Automated setup tool for MC-MultiLoader-MDK with guided prompts for streamlined project configuration.",
+  "preferGlobal": true,
+  "bin": "cli.js",
+  "type": "module",
+  "author": {
+    "name": "Markus Bordihn",
+    "email": "Markus@Bordihn.de",
+    "url": "https://github.com/MarkusBordihn"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MarkusBordihn/MC-MultiLoader-MDK-setup.git"
+  },
+  "bugs": {
+    "url": "https://github.com/MarkusBordihn/MC-MultiLoader-MDK-setup/issues"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=20.16.0",
+    "npm": ">=7.0.0"
+  },
+  "engine-strict": true,
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "cli-progress": "^3.12.0",
+    "enquirer": "^2.3.6",
+    "fs-extra": "^11.1.0",
+    "ignore": "^5.2.4"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.9.0",
+    "@typescript-eslint/eslint-plugin": "^8.1.0",
+    "@typescript-eslint/parser": "^8.1.0",
+    "eslint": "^9.9.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-compat": "^6.0.0",
+    "eslint-plugin-prettier": "^5.1.3",
+    "globals": "^15.9.0"
+  },
+  "scripts": {
+    "cli": "npm exec ./",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "upgrade": "npx npm-check -u --skip-unused",
+    "test": "npm run lint && npm exec ./ && npm exec ./ debug && npm exec ./ version"
+  }
+}

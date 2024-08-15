@@ -1,0 +1,4 @@
+[submodule "third_party/mc-multi-loader-mdk-1.18.2"]
+	path = third_party/mc-multi-loader-mdk-1.18.2
+	url = https://github.com/MarkusBordihn/MC-MultiLoader-MDK.git
+	branch = 1.18.2
