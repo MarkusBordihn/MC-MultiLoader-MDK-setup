@@ -20,6 +20,7 @@
 import { spawnSync } from 'child_process';
 import LanguageUtils from '../utils/languageUtils.js';
 import normalizer from '../utils/normalizer.js';
+import * as os from 'node:os';
 
 const configVersion = '1.0.0';
 const possibleNamespacePrefix =
@@ -35,6 +36,7 @@ function getGitAuthor() {
         .split('\n')[0]
         .trim() || ''
     );
+    // eslint-disable-next-line no-unused-vars
   } catch (error) {
     return '';
   }

@@ -1,6 +1,6 @@
 {
   "name": "mc-multi-loader-mdk",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Automated setup tool for MC-MultiLoader-MDK with guided prompts for streamlined project configuration.",
   "preferGlobal": true,
   "bin": "cli.js",
@@ -31,10 +31,10 @@
     "ignore": "^5.2.4"
   },
   "devDependencies": {
-    "@eslint/js": "^9.9.0",
-    "@typescript-eslint/eslint-plugin": "^8.1.0",
-    "@typescript-eslint/parser": "^8.1.0",
-    "eslint": "^9.9.0",
+    "@eslint/js": "^9.9.1",
+    "@typescript-eslint/eslint-plugin": "^8.3.0",
+    "@typescript-eslint/parser": "^8.3.0",
+    "eslint": "^9.9.1",
     "eslint-config-google": "^0.14.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-compat": "^6.0.0",
