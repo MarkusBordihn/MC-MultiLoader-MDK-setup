@@ -32,7 +32,7 @@ const newProject = (name, config = {}) => {
       .then((game_version) => {
         if (!getProjectTemplate(game_version)) {
           console.warn(
-            'Unsupported Version, you need to setup the Mdk manually!',
+            'MDK template not found! Please update and try again, or manually setup the MDK!',
           );
         } else {
           newProject(null, { game_version: game_version });
@@ -83,6 +83,7 @@ const getProjectTemplate = (version) => {
   switch (version) {
     case '1.18.2':
     case '1.19.2':
+    case '1.21.1':
       return `${prefix}${version}`;
     default:
       return '';

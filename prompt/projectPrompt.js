@@ -212,7 +212,7 @@ const versionSelect = new Select({
     //  value: '1.16.5',
     //},
     {
-      message: '1.18.2',
+      message: '1.18.2 (Fabric / Forge)',
       value: '1.18.2',
     },
     //{
@@ -223,10 +223,10 @@ const versionSelect = new Select({
     //  message: '1.20.1',
     //  value: '1.20.1',
     //},
-    //{
-    //  message: '1.21.1',
-    //  value: '1.21.1',
-    //},
+    {
+      message: '1.21.1 (Fabric / Forge / NeoForge)',
+      value: '1.21.1',
+    },
   ],
 });
 
