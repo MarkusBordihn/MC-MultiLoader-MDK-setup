@@ -1,0 +1,34 @@
+# Test files
+test/
+*.test.js
+
+# GitHub workflows and config (but keep .gitignore and .gitattributes in templates)
+.github/
+.git/
+.gitmodules
+
+# IDE files
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+
+# Development files
+.prettierrc
+eslint.config.js
+tsconfig.json
+global.d.ts
+
+# Build and dependency files
+node_modules/
+package-lock.json
+npm-debug.log
+.npmrc
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Documentation (CHANGELOG is excluded, keep README.md and LICENSE.md)
+CHANGELOG.md

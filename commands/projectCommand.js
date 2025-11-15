@@ -42,19 +42,17 @@ const newProject = (name, config = {}) => {
     return;
   }
 
-  // Check if project meta-data is set.
   if (!name) {
     prompts
       .projectForm(config)
       .run()
       .then((values) => {
-        newProject(values.mod_name, { ...values });
+        newProject(values.mod_name, values);
       })
       .catch(console.error);
     return;
   }
 
-  // Check if the project should be confirmed.
   if (!config.confirmed) {
     console.log(config);
     prompts.confirmProject
@@ -83,6 +81,7 @@ const getProjectTemplate = (version) => {
   switch (version) {
     case '1.18.2':
     case '1.19.2':
+    case '1.20.1':
     case '1.21.1':
       return `${prefix}${version}`;
     default:

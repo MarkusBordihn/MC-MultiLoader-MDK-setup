@@ -17,27 +17,20 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import chalk from 'chalk';
+import { describe, it } from 'node:test';
+import { ok } from 'node:assert';
+import fileUtils from '../utils/fileUtils.js';
 
-const command = chalk.green('mc-multi-loader-mdk');
+describe('fileUtils', () => {
+  it('should have renameFolder function', () => {
+    ok(typeof fileUtils.renameFolder === 'function');
+  });
 
-const newCommand = `
- ${command} new\t\t\t\t${chalk.grey('creates a new project')}
-`.substring(1);
+  it('should have removeFolder function', () => {
+    ok(typeof fileUtils.removeFolder === 'function');
+  });
 
-const debugCommands = `
- ${command} debug\t\t\t\t${chalk.grey('shows debug information')}
- ${command} version\t\t\t\t${chalk.grey('shows current version number')}
-`.substring(1);
-
-export default {
-  showUsage: () => {
-    const usage = `${command} <command>
-
- Usage:
-
-${newCommand}
-${debugCommands}`;
-    console.log(usage);
-  },
-};
+  it('should have removeFolderIfEmpty function', () => {
+    ok(typeof fileUtils.removeFolderIfEmpty === 'function');
+  });
+});

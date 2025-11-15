@@ -1,10 +1,36 @@
 {
   "name": "mc-multi-loader-mdk",
-  "version": "0.3.0",
+  "version": "1.0.0",
   "description": "Automated setup tool for MC-MultiLoader-MDK with guided prompts for streamlined project configuration.",
+  "keywords": [
+    "minecraft",
+    "minecraft-mod",
+    "forge",
+    "fabric",
+    "neoforge",
+    "mod-loader",
+    "multiloader",
+    "template",
+    "cli",
+    "mdk"
+  ],
+  "homepage": "https://github.com/MarkusBordihn/MC-MultiLoader-MDK-setup#readme",
   "preferGlobal": true,
   "bin": "cli.js",
   "type": "module",
+  "files": [
+    "cli.js",
+    "usage.js",
+    "commands/",
+    "config/",
+    "project/",
+    "prompt/",
+    "utils/",
+    "templates/",
+    "third_party/",
+    "LICENSE.md",
+    "README.md"
+  ],
   "author": {
     "name": "Markus Bordihn",
     "email": "Markus@Bordihn.de",
@@ -24,22 +50,22 @@
   },
   "engine-strict": true,
   "dependencies": {
-    "chalk": "^5.4.1",
+    "chalk": "^5.6.2",
     "cli-progress": "^3.12.0",
     "enquirer": "^2.3.6",
-    "fs-extra": "^11.3.0",
+    "fs-extra": "^11.3.2",
     "ignore": "^7.0.5"
   },
   "devDependencies": {
-    "@eslint/js": "^9.28.0",
-    "@typescript-eslint/eslint-plugin": "^8.33.0",
-    "@typescript-eslint/parser": "^8.33.0",
-    "eslint": "^9.28.0",
+    "@eslint/js": "^9.39.1",
+    "@typescript-eslint/eslint-plugin": "^8.46.4",
+    "@typescript-eslint/parser": "^8.46.4",
+    "eslint": "^9.39.1",
     "eslint-config-google": "^0.14.0",
-    "eslint-config-prettier": "^10.1.5",
+    "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-compat": "^6.0.2",
-    "eslint-plugin-prettier": "^5.4.1",
-    "globals": "^16.2.0"
+    "eslint-plugin-prettier": "^5.5.4",
+    "globals": "^16.5.0"
   },
   "scripts": {
     "cli": "npm exec ./",
@@ -48,7 +74,10 @@
     "cli:version": "npm exec ./ version",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "upgrade": "npx npm-check -u --skip-unused && npm install && npm update && npm prune && npm audit fix",
-    "test": "npm run lint && npm exec ./ && npm exec ./ debug && npm exec ./ version"
+    "test:unit": "node --test test/*.test.js",
+    "test:integration": "node --test test/integration.test.js",
+    "test": "npm run lint && npm run test:unit && npm exec ./ && npm exec ./ debug && npm exec ./ version",
+    "prepublishOnly": "npm run lint && npm run test:unit",
+    "upgrade": "npx npm-check -u --skip-unused && npm install && npm update && npm prune && npm audit fix"
   }
 }

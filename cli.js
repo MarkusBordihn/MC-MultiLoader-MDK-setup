@@ -23,11 +23,16 @@ const args = process.argv.slice(2);
 
 import usageCommand from './usage.js';
 import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import projectCommand from './commands/projectCommand.js';
 
-// Read version from package.json over fs, import json is still experimental.
-const packageJson = fs.readFileSync('./package.json');
-const { version } = JSON.parse(packageJson);
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const { version } = JSON.parse(
+  fs.readFileSync(path.join(__dirname, 'package.json'), 'utf8'),
+);
 
 // Basic usage of the command line interface
 switch (args[0]) {

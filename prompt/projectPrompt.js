@@ -24,10 +24,6 @@ import normalizer from '../utils/normalizer.js';
 
 const { Confirm, Form, Select } = enquirer;
 
-const detectedLanguage = LanguageUtils.getLanguage();
-const possibleNamespacePrefix =
-  detectedLanguage.substring(0, 2).toLocaleLowerCase() || 'net';
-
 const defaultProjectConfig = projectConfig.getDefault();
 const projectForm = function (projectConfig) {
   return new Form({
@@ -136,7 +132,8 @@ const projectForm = function (projectConfig) {
         onChoice(state, choice) {
           const { author, mod_id } = this.values;
           choice.initial = `${normalizer.normalizeClassNameSpace(
-            possibleNamespacePrefix,
+            LanguageUtils.getLanguage().substring(0, 2).toLocaleLowerCase() ||
+              'net',
           )}.${normalizer.normalizeClassNameSpace(
             author,
           )}.${normalizer.normalizeClassNameSpace(mod_id || 'new_project')}`;
@@ -219,10 +216,10 @@ const versionSelect = new Select({
     //  message: '1.19.2',
     //  value: '1.19.2',
     //},
-    //{
-    //  message: '1.20.1',
-    //  value: '1.20.1',
-    //},
+    {
+      message: '1.20.1 (Fabric / Forge)',
+      value: '1.20.1',
+    },
     {
       message: '1.21.1 (Fabric / Forge / NeoForge)',
       value: '1.21.1',

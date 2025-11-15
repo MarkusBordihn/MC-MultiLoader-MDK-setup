@@ -36,6 +36,32 @@ class Project {
     this.config = config;
   }
 
+  static shouldSkipFileForPlaceholderReplacement(filePath) {
+    const fileName = path.basename(filePath);
+    const ext = path.extname(filePath).toLowerCase();
+
+    const binaryExtensions = [
+      '.jar',
+      '.zip',
+      '.png',
+      '.jpg',
+      '.jpeg',
+      '.nbt',
+      '.snbt',
+      '.gif',
+      '.ico',
+      '.class',
+      '.exe',
+      '.dll',
+      '.so',
+      '.dylib',
+    ];
+
+    const skipFiles = ['.gitignore', '.gitattributes', '.gitkeep'];
+
+    return binaryExtensions.includes(ext) || skipFiles.includes(fileName);
+  }
+
   static getProjectPath(name = this.name, config = this.config) {
     return path.join(process.cwd(), name + '-' + config.game_version);
   }
@@ -199,11 +225,13 @@ class Project {
       projectPath,
     );
     progressBar.start(100, 0, { filename: 'Starting ...' });
-    if (fs.copySync(templatePath, projectPath)) {
-      console.error('Failed to copy template files!');
-      return;
-    } else {
+    try {
+      fs.copySync(templatePath, projectPath);
       progressBar.update(100, { filename: 'Finished!' });
+    } catch (error) {
+      console.error('Failed to copy template files!', error);
+      progressBar.stop();
+      return;
     }
     progressBar.stop();
   }
@@ -211,7 +239,6 @@ class Project {
   cleanupTemplate(name, config) {
     const projectPath = Project.getProjectPath(name, config);
 
-    // Copy logo from current path, if available
     const existingLogoPath = path.join(process.cwd(), 'logo.png');
     if (fs.existsSync(existingLogoPath)) {
       const logoPath = path.join(
@@ -226,7 +253,13 @@ class Project {
       fs.copyFileSync(existingLogoPath, logoPath);
     }
 
-    // Rename class namespace folders.
+    const gitignoreTemplatePath = path.join(__dirname, '..', 'templates', 'gitignore.template');
+    if (fs.existsSync(gitignoreTemplatePath)) {
+      const gitignorePath = path.join(projectPath, '.gitignore');
+      console.log('Copying .gitignore template to', gitignorePath);
+      fs.copyFileSync(gitignoreTemplatePath, gitignorePath);
+    }
+
     Project.renameClassNamespaceFolders(projectPath, 'Common', config);
     Project.renameClassNamespaceFolders(projectPath, 'Fabric', config);
     Project.renameClassNamespaceFolders(projectPath, 'Forge', config);
@@ -310,11 +343,20 @@ class Project {
       if (!fs.statSync(filePath).isFile()) {
         return;
       }
-      let content = fs.readFileSync(filePath, 'utf8');
-      for (const [key, value] of Object.entries(templatePlaceholder)) {
-        content = content.replace(new RegExp(key, 'g'), value);
+
+      if (Project.shouldSkipFileForPlaceholderReplacement(filePath)) {
+        return;
       }
-      fs.writeFileSync(filePath, content, 'utf8');
+
+      try {
+        let content = fs.readFileSync(filePath, 'utf8');
+        for (const [key, value] of Object.entries(templatePlaceholder)) {
+          content = content.replace(new RegExp(key, 'g'), value);
+        }
+        fs.writeFileSync(filePath, content, 'utf8');
+      } catch (error) {
+        console.warn(`Skipping file ${file} due to error:`, error.message);
+      }
     });
     progressBar.stop();
   }

@@ -23,15 +23,11 @@ import normalizer from '../utils/normalizer.js';
 import * as os from 'node:os';
 
 const configVersion = '1.0.0';
-const possibleNamespacePrefix =
-  LanguageUtils.getLanguage().substring(0, 2).toLocaleLowerCase() || 'net';
 
 function getGitAuthor() {
   try {
     return (
-      spawnSync('git', ['config', 'user.name'], {
-        shell: true,
-      })
+      spawnSync('git', ['config', 'user.name'])
         .stdout.toString()
         .split('\n')[0]
         .trim() || ''
@@ -54,9 +50,7 @@ function getAuthor() {
 function getClassNamespace() {
   return (
     process.env.npm_package_config_project_namespace ||
-    `${possibleNamespacePrefix}.${normalizer.normalizeModId(
-      getAuthor(),
-    )}.examplemod` ||
+    `${LanguageUtils.getLanguage().substring(0, 2).toLocaleLowerCase() || 'net'}.${normalizer.normalizeModId(getAuthor())}.examplemod` ||
     'org.example.examplemod'
   );
 }
@@ -70,7 +64,7 @@ function getDefault() {
     class_package_name: 'examplemod',
     description: 'Description for Example Mod ...',
     display_url: 'https://example.org/examplemod',
-    game_version: '1.18.2',
+    game_version: '1.20.1',
     issue_tracker_url: 'https://example.org/issues',
     license: 'MIT',
     vendor_name: 'johndoe',

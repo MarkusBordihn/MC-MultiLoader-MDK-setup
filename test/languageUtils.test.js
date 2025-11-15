@@ -17,27 +17,15 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import chalk from 'chalk';
+import { describe, it } from 'node:test';
+import { ok } from 'node:assert';
+import LanguageUtils from '../utils/languageUtils.js';
 
-const command = chalk.green('mc-multi-loader-mdk');
-
-const newCommand = `
- ${command} new\t\t\t\t${chalk.grey('creates a new project')}
-`.substring(1);
-
-const debugCommands = `
- ${command} debug\t\t\t\t${chalk.grey('shows debug information')}
- ${command} version\t\t\t\t${chalk.grey('shows current version number')}
-`.substring(1);
-
-export default {
-  showUsage: () => {
-    const usage = `${command} <command>
-
- Usage:
-
-${newCommand}
-${debugCommands}`;
-    console.log(usage);
-  },
-};
+describe('LanguageUtils', () => {
+  describe('getLanguage', () => {
+    it('should return a string', () => {
+      const language = LanguageUtils.getLanguage();
+      ok(typeof language === 'string');
+    });
+  });
+});
